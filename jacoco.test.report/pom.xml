@@ -7,9 +7,7 @@
     <artifactId>jacoco.test.parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>jacoco.test</groupId>
   <artifactId>jacoco.test.report</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>jacoco.test.report</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -23,4 +21,86 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+  	<plugins>
+  		<!-- jacoco maven plugin -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.8</version>
+				<configuration>
+					<address>127.0.0.1</address>
+					<destFile>/Users/rkrishnasamyvija/Downloads/jacoco-spring-test-new.exec</destFile>
+					<dataFile>/Users/rkrishnasamyvija/Downloads/jacoco-spring-test-new.exec</dataFile>
+					<port>6300</port>
+					<reset>true</reset>
+					<append>false</append>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>dump-execution-set</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>dump</goal>
+						</goals>
+					</execution>
+					<!-- <execution> <id>report-generation</id> <phase>verify</phase> <goals> 
+						<goal>report</goal> </goals> </execution> -->
+				</executions>
+			</plugin>
+
+			<!-- maven antrun plugin -->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<!-- <id>default-cli</id> -->
+						<phase>verify</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<echo message="Generating HTML coverage report.." />
+								<taskdef name="report" classname="org.jacoco.ant.ReportTask"
+									classpathref="maven.plugin.classpath" />
+								<report>
+									<executiondata>
+										<file
+											file="/Users/rkrishnasamyvija/Downloads/jacoco-spring-test-new.exec">
+										</file>
+									</executiondata>
+									<structure name="Integration test coverage">
+										<classfiles>
+											<fileset
+												dir="../../jacoco.test.app/target/classes">
+											</fileset>
+										</classfiles>
+										<sourcefiles encoding="UTF-8">
+											<fileset
+												dir="../../jacoco.test.app/src/main/java">
+											</fileset>
+										</sourcefiles>
+									</structure>
+									<html destdir="${project.build.directory}/coverage-report/html" />
+									<xml
+										destfile="${project.build.directory}/coverage-report/coverage-report.xml" />
+									<csv
+										destfile="${project.build.directory}/coverage-report/coverage-report.csv" />
+								</report>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.jacoco</groupId>
+						<artifactId>org.jacoco.ant</artifactId>
+						<version>0.7.8</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+  	</plugins>
+  </build>
 </project>
