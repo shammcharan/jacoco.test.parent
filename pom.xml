@@ -23,9 +23,7 @@
     </dependency>
   </dependencies>
   <modules>
-  	
+  	<module>jacoco.test.app</module>
     <module>jacoco.test.report</module>
-    
-    <module>jacoco.test.app</module>
   </modules>
 </project>

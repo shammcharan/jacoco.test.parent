@@ -74,12 +74,12 @@
 									<structure name="Integration test coverage">
 										<classfiles>
 											<fileset
-												dir="../../jacoco.test.app/target/classes">
+												dir="../jacoco.test.app/target/classes">
 											</fileset>
 										</classfiles>
 										<sourcefiles encoding="UTF-8">
 											<fileset
-												dir="../../jacoco.test.app/src/main/java">
+												dir="../jacoco.test.app/src/main/java">
 											</fileset>
 										</sourcefiles>
 									</structure>
