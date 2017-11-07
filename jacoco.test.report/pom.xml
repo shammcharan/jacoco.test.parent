@@ -30,8 +30,8 @@
 				<version>0.7.8</version>
 				<configuration>
 					<address>127.0.0.1</address>
-					<destFile>/tmp/jacoco-spring-test-new.exec</destFile>
-					<dataFile>/tmp/jacoco-spring-test-new.exec</dataFile>
+					<destFile>jacoco-spring-test-new.exec</destFile>
+					<dataFile>jacoco-spring-test-new.exec</dataFile>
 					<port>6300</port>
 					<reset>true</reset>
 					<append>false</append>
@@ -68,7 +68,7 @@
 								<report>
 									<executiondata>
 										<file
-											file="/tmp/jacoco-spring-test-new.exec">
+											file="jacoco-spring-test-new.exec">
 										</file>
 									</executiondata>
 									<structure name="Integration test coverage">
