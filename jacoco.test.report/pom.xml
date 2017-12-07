@@ -1,29 +1,74 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>jacoco.test</groupId>
-    <artifactId>jacoco.test.parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>jacoco.test.report</artifactId>
-  <name>jacoco.test.report</name>
-  <url>http://maven.apache.org</url>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <build>
-  	<plugins>
-  		<!-- jacoco maven plugin -->
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>jacoco.test</groupId>
+		<artifactId>jacoco.test.parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>jacoco.test.report</artifactId>
+	<name>jacoco.test.report</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<skipTests>false</skipTests>
+		<testFailureIgnore>false</testFailureIgnore>
+		<suiteXmlFile>SampleSuite.xml</suiteXmlFile>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.6</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.jayway.restassured/rest-assured -->
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>2.9.0</version>
+			
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19</version>
+				<configuration>
+					<!-- Note: includes are ignored if you use a suiteXmlFiles section, 
+						shown below. We recommend test classes have *Test* in the name by convention -->
+					<includes>
+						<include>**/*Test*.java</include>
+					</includes>
+
+					<!-- You can specify a specific testng.xml file here <suiteXmlFiles> 
+						<suiteXmlFile>src/test/resources/testng-sample.xml</suiteXmlFile> </suiteXmlFiles> -->
+					<!-- Or dynamically with something like '-DsuiteXmlFile=src/test/resources/testng-sample.xml' -->
+
+					<suiteXmlFiles>
+						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+					</suiteXmlFiles>
+
+					<!-- Build with '-DskipTests=true' to bypass test execution @ build 
+						time Default: false -->
+					<skipTests>${skipTests}</skipTests>
+					<!-- Build with -DtestFailureIgnore=true to ignore test failures during 
+						test (NOT RECOMMENDED). -->
+					<testFailureIgnore>${testFailureIgnore}</testFailureIgnore>
+				</configuration>
+			</plugin>
+			<!-- jacoco maven plugin -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -67,19 +112,16 @@
 									classpathref="maven.plugin.classpath" />
 								<report>
 									<executiondata>
-										<file
-											file="/tmp/jacoco-spring-test-new.exec">
+										<file file="/tmp/jacoco-spring-test-new.exec">
 										</file>
 									</executiondata>
 									<structure name="Integration test coverage">
 										<classfiles>
-											<fileset
-												dir="../jacoco.test.app/target/classes">
+											<fileset dir="../jacoco.test.app/target/classes">
 											</fileset>
 										</classfiles>
 										<sourcefiles encoding="UTF-8">
-											<fileset
-												dir="../jacoco.test.app/src/main/java">
+											<fileset dir="../jacoco.test.app/src/main/java">
 											</fileset>
 										</sourcefiles>
 									</structure>
@@ -101,6 +143,6 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-  	</plugins>
-  </build>
+		</plugins>
+	</build>
 </project>

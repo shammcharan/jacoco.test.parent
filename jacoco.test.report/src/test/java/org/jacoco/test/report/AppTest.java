@@ -1,38 +1,17 @@
 package org.jacoco.test.report;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.testng.annotations.Test;
+import static com.jayway.restassured.RestAssured.given;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+public class AppTest {
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	@Test
+	public void testSample() {
+		String requestPayLoad = "{	\"userName\":\"Mukileshwar\",	\"passwd\":\"testpass\"}";
+		given()
+        .contentType("application/json")
+        .body(requestPayLoad)
+        .when().post("http://localhost:8090/v1/testApp/login").then()
+        .statusCode(200);
+	}
 }
